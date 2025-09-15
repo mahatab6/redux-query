@@ -2,6 +2,7 @@ import React from "react";
 import { useDeleteProductsMutation, useGetProductsQuery } from "../../services/productsApi";
 import Loading from "../../page/Loading";
 import ErrorPage from "../../page/ErrorPage";
+import ProductsForm from "./ProductsForm";
 
 export default function ProductView() {
   const { data, isLoading, isError } = useGetProductsQuery();
@@ -18,6 +19,7 @@ export default function ProductView() {
   }
 
   return (
+   <>
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 p-6">
       {data?.map((item) => (
         <div
@@ -27,6 +29,12 @@ export default function ProductView() {
           <h2 className="text-lg font-semibold mb-2  text-black">
             {item.title}
           </h2>
+          <h3 className="text-lg font-semibold mb-2  text-black">
+            {item.price}
+          </h3>
+          <p className="text-sm text-gray-600 flex-1 ">
+            {item.category}
+          </p>
           <p className="text-sm text-gray-600 flex-1 ">
             {item.description}
           </p>
@@ -36,5 +44,10 @@ export default function ProductView() {
         </div>
       ))}
     </div>
+
+    <div>
+        <ProductsForm/>
+    </div>
+   </>
   );
 }
