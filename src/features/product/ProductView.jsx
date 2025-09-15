@@ -1,10 +1,13 @@
 import React from "react";
-import { useGetProductsQuery } from "../../services/productsApi";
+import { useDeleteProductsMutation, useGetProductsQuery } from "../../services/productsApi";
 import Loading from "../../page/Loading";
 import ErrorPage from "../../page/ErrorPage";
 
 export default function ProductView() {
   const { data, isLoading, isError } = useGetProductsQuery();
+
+  const [deleteProducts] = useDeleteProductsMutation();
+  
 
   if (isLoading) {
     return <Loading />;
@@ -27,8 +30,8 @@ export default function ProductView() {
           <p className="text-sm text-gray-600 flex-1 ">
             {item.description}
           </p>
-          <button className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
-            View Details
+          <button onClick={() => deleteProducts(item.id) } className="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+            Delete
           </button>
         </div>
       ))}
